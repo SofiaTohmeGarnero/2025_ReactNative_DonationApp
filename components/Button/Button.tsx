@@ -3,7 +3,7 @@ import {Pressable, Text} from 'react-native';
 import style from './style';
 
 type ButtonProps = {
-    title: string, 
+    title: string,
     isDisabled?: boolean,
     onPress?: () => void,
 }

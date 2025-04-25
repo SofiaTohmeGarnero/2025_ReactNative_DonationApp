@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react';
 import {Pressable, Text} from 'react-native';
-import PropTypes from 'prop-types';
 
 import style from './style';
 type TabProps = {
@@ -9,7 +8,7 @@ type TabProps = {
     onPress?: () => void,
 };
 
-const Tab = ({title, isInactive= false, onPress= () => {}}: TabProps) => {
+const Tab = ({title, isInactive = false, onPress = () => {}}: TabProps) => {
   const [width, setWidth] = useState(0);
   const textRef = useRef(null);
   const paddingHorizontal = 33;

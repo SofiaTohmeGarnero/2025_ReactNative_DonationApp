@@ -3,11 +3,12 @@ import {View, Text} from 'react-native';
 import style from './style';
 
 type HeaderProps = {
-    title: string, 
-    type: number,
-}
+  title: string;
+  type?: number;
+  color?: string;
+};
 
-const Header = ({title = '', type = 1}: HeaderProps) => {
+const Header = ({title = '', type = 1, color = '#000000'}: HeaderProps) => {
   const styleToApply = () => {
     switch (type) {
       case 1:
@@ -20,7 +21,7 @@ const Header = ({title = '', type = 1}: HeaderProps) => {
   };
   return (
     <View>
-      <Text style={styleToApply()}>{title}</Text>
+      <Text style={[styleToApply(), color && {color}]}>{title}</Text>
     </View>
   );
 };
