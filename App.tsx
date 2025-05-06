@@ -12,15 +12,19 @@ import MainNavigation from './navigation/MainNavigation';
 // The Provider component is a higher-order component that provides the Redux store to all components in the app
 import {Provider} from 'react-redux';
 import store from './redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor} from './redux/store';
 
 function App(): React.JSX.Element {
 
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <MainNavigation />
-      </NavigationContainer>
+      <PersistGate persistor={persistor} loading={null}>
+        <NavigationContainer>
+          <MainNavigation />
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 }
