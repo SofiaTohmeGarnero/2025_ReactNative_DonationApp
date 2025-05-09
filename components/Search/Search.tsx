@@ -7,9 +7,10 @@ import style from './style';
 
 type SearchProps = {
     onSearch: (searchValue: string) => void,
+    placeholder: string,
 };
 
-const Search = ({onSearch}:SearchProps) => {
+const Search = ({onSearch, placeholder }:SearchProps) => {
   const textInputRef = useRef<TextInput>(null);
   const [search, setSearch] = useState('');
 
@@ -29,6 +30,7 @@ const Search = ({onSearch}:SearchProps) => {
         size={22}
       />
       <TextInput
+        placeholder={placeholder}
         ref={textInputRef}
         style={style.searchInput}
         value={search}

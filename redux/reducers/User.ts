@@ -6,6 +6,7 @@ const initialState = {
   firstName: 'Sofia',
   lastName: 'Tohme',
   userId: 1,
+  profileImage: require('../../assets/images/user_profile_image.png'),
 };
 
 // Creating a new slice of the store named "user" with its own set of reducers
@@ -19,10 +20,13 @@ export const User = createSlice({
     updateFirstName: (state, action) => {
       state.firstName = action.payload.firstName;
     },
+    resetToInitialState: () => {
+      return initialState;
+    },
   },
 });
 
 // Exporting the reducers here from the "User" slice
 // makes them available to other parts of the app that want to use it
-export const {updateFirstName} = User.actions;
+export const {updateFirstName, resetToInitialState} = User.actions;
 export default User.reducer;
