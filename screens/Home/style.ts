@@ -34,6 +34,17 @@ const style = StyleSheet.create({
     width: '100%',
     height: 180,
   },
+  categoryHeader: {
+    marginHorizontal: 24,
+    marginBottom: 16,
+    marginTop: 6,
+  },
+  categories: {
+    marginLeft: 24,
+  },
+  categoryItem: {
+    marginRight: 10,
+  },
 });
 
 export default style;

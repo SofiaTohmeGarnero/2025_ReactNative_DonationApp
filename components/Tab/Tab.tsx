@@ -3,12 +3,13 @@ import {Pressable, Text} from 'react-native';
 
 import style from './style';
 type TabProps = {
+    tabId?: number;
     title: string,
     isInactive?: boolean,
-    onPress?: () => void,
+    onPress?: (tabId:number) => void,
 };
 
-const Tab = ({title, isInactive = false, onPress = () => {}}: TabProps) => {
+const Tab = ({tabId, title, isInactive = false, onPress = () => {}}: TabProps) => {
   const [width, setWidth] = useState(0);
   const textRef = useRef(null);
   const paddingHorizontal = 33;
@@ -17,9 +18,12 @@ const Tab = ({title, isInactive = false, onPress = () => {}}: TabProps) => {
   };
   return (
     <Pressable
-      disabled={isInactive}
+      //disabled={isInactive}
       style={[style.tab, isInactive && style.inactiveTab, tabWidth]}
-      onPress={() => onPress()}>
+      onPress={() => {
+        onPress(tabId as number);
+      }}
+    >
       <Text
         onTextLayout={event => {
           setWidth(event.nativeEvent.lines[0].width);
