@@ -36,14 +36,22 @@ const style = StyleSheet.create({
   },
   categoryHeader: {
     marginHorizontal: 24,
-    marginBottom: 16,
-    marginTop: 6,
+    marginVertical: 16,
   },
   categories: {
     marginLeft: 24,
   },
   categoryItem: {
     marginRight: 10,
+  },
+  donationItemsContainer: {
+    marginTop: 20,
+    marginHorizontal: 24,
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 16,
+    justifyContent: 'space-evenly'
   },
 });
 

@@ -10,6 +10,8 @@ import { resetToInitialState, updateFirstName } from '../../redux/reducers/User'
 import { Category, updateSelectedCategoryId } from '../../redux/reducers/Categories';
 import Tab from '../../components/Tab/Tab';
 import { useEffect, useState } from 'react';
+import { Donation } from '../../redux/reducers/Donations';
+import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
 
 function Home(): React.JSX.Element {
 
@@ -17,12 +19,21 @@ function Home(): React.JSX.Element {
   // This will return the user object containing firstName, lastName and userId fields
   const user = useAppSelector(state => state.user);
   const categories = useAppSelector(state => state.categories);
+  const donations = useAppSelector(state => state.donations);
   const dispatch = useAppDispatch();
 
+  const [donationItems, setDonationItems] = useState<Donation[]>([]);
   const [categoryPage, setCategoryPage] = useState(1);
   const [categoryList, setCategoryList] = useState<Category[]>([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const categoryPageSize = 4;
+
+  useEffect(() => {
+    const items = donations.items.filter(value =>
+      value.categoryIds.includes(categories.selectedCategoryId),
+    );
+    setDonationItems(items);
+  }, [categories.selectedCategoryId]);
 
   useEffect(() => {
     setIsLoadingCategories(true);
@@ -111,6 +122,25 @@ function Home(): React.JSX.Element {
             )}
           />
         </View>
+        {donationItems.length > 0 && (
+          <View style={style.donationItemsContainer}>
+            {donationItems.map(value => (
+              <SingleDonationItem
+                onPress={selectedDonationId => {}}
+                donationItemId={value.donationItemId}
+                uri={value.image}
+                donationTitle={value.name}
+                badgeTitle={
+                  categories.categories.filter(
+                    val => val.categoryId === categories.selectedCategoryId,
+                  )[0].name
+                }
+                key={value.donationItemId}
+                price={parseFloat(value.price)}
+              />
+            ))}
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

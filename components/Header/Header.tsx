@@ -6,9 +6,15 @@ type HeaderProps = {
   title: string;
   type?: number;
   color?: string;
+  numberOfLines?: number;
 };
 
-const Header = ({title = '', type = 1, color = '#000000'}: HeaderProps) => {
+const Header = ({
+  title = '',
+  type = 1,
+  color = '#000000',
+  numberOfLines,
+}: HeaderProps) => {
   const styleToApply = () => {
     switch (type) {
       case 1:
@@ -21,7 +27,12 @@ const Header = ({title = '', type = 1, color = '#000000'}: HeaderProps) => {
   };
   return (
     <View>
-      <Text style={[styleToApply(), color && {color}]}>{title}</Text>
+      <Text
+        style={[styleToApply(), color && {color}]}
+        numberOfLines={numberOfLines ?? undefined}
+      >
+        {title}
+      </Text>
     </View>
   );
 };
