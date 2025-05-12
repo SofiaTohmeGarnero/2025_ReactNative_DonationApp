@@ -1,3 +1,5 @@
+import { Category } from "../redux/reducers/Categories";
+
 export const Routes = {
     Home: 'Home',
     Practice: 'Practice',
@@ -7,5 +9,5 @@ export const Routes = {
 export type RootStackParamList = {
     Home: undefined;
     Practice: undefined;
-    SingleDonationItem: undefined;
+    SingleDonationItem: {categoryInformation: Category};
 };

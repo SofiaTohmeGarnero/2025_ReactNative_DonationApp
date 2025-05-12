@@ -25,11 +25,10 @@ import {useEffect, useState} from 'react';
 import {Donation} from '../../redux/reducers/Donations';
 import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
 import {RootStackParamList, Routes} from '../../navigation/Routes';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 function Home(): React.JSX.Element {
-
   type NavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
   const navigation = useNavigation<NavigationProp>();
 
@@ -115,10 +114,6 @@ function Home(): React.JSX.Element {
               if (isLoadingCategories) {
                 return;
               }
-              console.log(
-                'User has reached the end and we are getting more data for page number ',
-                categoryPage,
-              );
               setIsLoadingCategories(true);
               let newData = pagination(
                 categories.categories,
@@ -148,24 +143,28 @@ function Home(): React.JSX.Element {
         </View>
         {donationItems.length > 0 && (
           <View style={style.donationItemsContainer}>
-            {donationItems.map(value => (
-              <SingleDonationItem
-                onPress={selectedDonationId => {
-                  dispatch(updateSelectedDonationId(selectedDonationId));
-                  navigation.navigate(Routes.SingleDonationItem);
-                }}
-                donationItemId={value.donationItemId}
-                uri={value.image}
-                donationTitle={value.name}
-                badgeTitle={
-                  categories.categories.filter(
-                    val => val.categoryId === categories.selectedCategoryId,
-                  )[0].name
-                }
-                key={value.donationItemId}
-                price={parseFloat(value.price)}
-              />
-            ))}
+            {donationItems.map(value => {
+              const categoryInformation = categories.categories.find(
+                val => val.categoryId === categories.selectedCategoryId,
+              );
+              if (!categoryInformation) return;
+              return (
+                <SingleDonationItem
+                  onPress={selectedDonationId => {
+                    dispatch(updateSelectedDonationId(selectedDonationId));
+                    navigation.navigate(Routes.SingleDonationItem, {
+                      categoryInformation,
+                    });
+                  }}
+                  donationItemId={value.donationItemId}
+                  uri={value.image}
+                  donationTitle={value.name}
+                  badgeTitle={categoryInformation?.name}
+                  key={value.donationItemId}
+                  price={parseFloat(value.price)}
+                />
+              );
+            })}
           </View>
         )}
       </ScrollView>
