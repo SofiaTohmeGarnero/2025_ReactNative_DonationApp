@@ -1,4 +1,12 @@
-import {FlatList, Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import globalStyle from '../../common/globalStyle';
 import style from './style';
 import Header from '../../components/Header/Header';
@@ -6,14 +14,24 @@ import Search from '../../components/Search/Search';
 // Importing the useSelector hook from the React Redux library
 // This hook allows us to select and retrieve data from the store
 import {useAppDispatch, useAppSelector} from '../../redux/typehooks';
-import { resetToInitialState, updateFirstName } from '../../redux/reducers/User';
-import { Category, updateSelectedCategoryId } from '../../redux/reducers/Categories';
+import {resetToInitialState, updateFirstName} from '../../redux/reducers/User';
+import {
+  Category,
+  updateSelectedCategoryId,
+} from '../../redux/reducers/Categories';
+import {updateSelectedDonationId} from '../../redux/reducers/Donations';
 import Tab from '../../components/Tab/Tab';
-import { useEffect, useState } from 'react';
-import { Donation } from '../../redux/reducers/Donations';
+import {useEffect, useState} from 'react';
+import {Donation} from '../../redux/reducers/Donations';
 import SingleDonationItem from '../../components/SingleDonationItem/SingleDonationItem';
+import {RootStackParamList, Routes} from '../../navigation/Routes';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 function Home(): React.JSX.Element {
+
+  type NavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+  const navigation = useNavigation<NavigationProp>();
 
   // Using the useSelector hook to select the "user" slice of the store
   // This will return the user object containing firstName, lastName and userId fields
@@ -44,7 +62,11 @@ function Home(): React.JSX.Element {
     setIsLoadingCategories(false);
   }, []);
 
-  const pagination = (items: Category[], pageNumber:number, pageSize: number) => {
+  const pagination = (
+    items: Category[],
+    pageNumber: number,
+    pageSize: number,
+  ) => {
     const startIndex = (pageNumber - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     if (startIndex >= items.length) {
@@ -52,10 +74,10 @@ function Home(): React.JSX.Element {
     }
     return items.slice(startIndex, endIndex);
   };
-  
+
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
-     <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.header}>
           <View>
             <Text style={style.headerIntroText}>Hello, </Text>
@@ -72,9 +94,11 @@ function Home(): React.JSX.Element {
           />
         </View>
         <View style={style.searchBox}>
-          <Search onSearch={()=>{}} placeholder='Search'/>
+          <Search onSearch={() => {}} placeholder="Search" />
         </View>
-        <Pressable style={style.highlightedImageContainer} onPress={()=>dispatch(resetToInitialState())} >
+        <Pressable
+          style={style.highlightedImageContainer}
+          onPress={() => dispatch(resetToInitialState())}>
           <Image
             style={style.highlightedImage}
             source={require('../../assets/images/highlighted_image.png')}
@@ -126,7 +150,10 @@ function Home(): React.JSX.Element {
           <View style={style.donationItemsContainer}>
             {donationItems.map(value => (
               <SingleDonationItem
-                onPress={selectedDonationId => {}}
+                onPress={selectedDonationId => {
+                  dispatch(updateSelectedDonationId(selectedDonationId));
+                  navigation.navigate(Routes.SingleDonationItem);
+                }}
                 donationItemId={value.donationItemId}
                 uri={value.image}
                 donationTitle={value.name}
