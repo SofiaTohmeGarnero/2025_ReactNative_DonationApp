@@ -7,6 +7,9 @@ const globalStyle = StyleSheet.create({
   flex: {
     flex: 1,
   },
+  marginBottom24: {
+    marginBottom: 24,
+  },
 });
 
 export default globalStyle;
