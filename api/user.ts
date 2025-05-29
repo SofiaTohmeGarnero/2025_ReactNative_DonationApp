@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from '@react-native-firebase/auth';
+import { updateToken } from '../redux/reducers/User';
+import store from '../redux/store';
 //import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export const createUser = async (
@@ -81,4 +83,21 @@ export const logOut = async () => {
   const app = getApp();
   const auth = getAuth(app);
   await signOut(auth);
+};
+
+export const checkToken = async () => {
+  try {
+    const app = getApp(); // obtiene la app de Firebase
+    const auth = getAuth(app); // obtiene el auth asociado
+
+    const currentUser = auth.currentUser;
+    if (!currentUser) throw new Error('No current user found');
+
+    const token = await currentUser.getIdToken(true); // fuerza refresco del token
+    console.log('We are updating token for you');
+    store.dispatch(updateToken(token));
+    return token;
+  } catch (error) {
+    return error;
+  }
 };

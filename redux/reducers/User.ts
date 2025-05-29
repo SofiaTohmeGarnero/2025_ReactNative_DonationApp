@@ -6,7 +6,7 @@ const initialState = {
   // firstName: 'Sofia',
   // lastName: 'Tohme',
   // userId: 1,
-  
+
   /** Asi definimos los datos en api/user - connection with firebase */
   displayName: 'Sofia Tohme',
   email: 'sofia@donation.com',
@@ -33,10 +33,13 @@ export const User = createSlice({
     resetToInitialState: () => {
       return initialState;
     },
+    updateToken: (state, action) => {
+      state.token = action.payload;
+    },
   },
 });
 
 // Exporting the reducers here from the "User" slice
 // makes them available to other parts of the app that want to use it
-export const {/* updateFirstName */ logIn, resetToInitialState} = User.actions;
+export const {/* updateFirstName */ logIn, resetToInitialState, updateToken} = User.actions;
 export default User.reducer;
