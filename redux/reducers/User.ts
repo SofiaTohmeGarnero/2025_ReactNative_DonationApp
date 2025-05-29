@@ -3,9 +3,15 @@ import {createSlice} from '@reduxjs/toolkit';
 
 // Defining the initial state for the user slice of the store
 const initialState = {
-  firstName: 'Sofia',
-  lastName: 'Tohme',
-  userId: 1,
+  // firstName: 'Sofia',
+  // lastName: 'Tohme',
+  // userId: 1,
+  
+  /** Asi definimos los datos en api/user - connection with firebase */
+  displayName: 'Sofia Tohme',
+  email: 'sofia@donation.com',
+  token: 'string',
+  isLoggedIn: false,
   profileImage: require('../../assets/images/user_profile_image.png'),
 };
 
@@ -17,8 +23,12 @@ export const User = createSlice({
     // Defining the "updateFirstName" reducer function
     // It takes the current state and an action object as parameters
     // It updates the firstName field of the state with the payload value of the action
-    updateFirstName: (state, action) => {
+
+    /*  updateFirstName: (state, action) => {
       state.firstName = action.payload.firstName;
+    }, */
+    logIn: (state, action) => {
+      return {...state, ...{isLoggedIn: true}, ...action.payload};
     },
     resetToInitialState: () => {
       return initialState;
@@ -28,5 +38,5 @@ export const User = createSlice({
 
 // Exporting the reducers here from the "User" slice
 // makes them available to other parts of the app that want to use it
-export const {updateFirstName, resetToInitialState} = User.actions;
+export const {/* updateFirstName */ logIn, resetToInitialState} = User.actions;
 export default User.reducer;

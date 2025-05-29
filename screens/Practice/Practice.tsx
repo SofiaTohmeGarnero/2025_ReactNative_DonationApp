@@ -11,7 +11,7 @@ import SingleDonationItem from '../../components/SingleDonationItem/SingleDonati
 // Importing the useSelector hook from the React Redux library
 // This hook allows us to select and retrieve data from the store
 import {useAppDispatch, useAppSelector} from '../../redux/typehooks';
-import { updateFirstName } from '../../redux/reducers/User';
+//import { updateFirstName } from '../../redux/reducers/User';
 
 function Practice(): React.JSX.Element {
 
@@ -21,11 +21,11 @@ function Practice(): React.JSX.Element {
   const dispatch = useAppDispatch();
   return (
     <SafeAreaView style={[globalStyle.backgroundWhite, globalStyle.flex]}>
-      <Header title={user.firstName + ' ' + user.lastName} />
-      {/*dispatching updateFirstName action to the User so that our state gets updated with the new first name we want to use*/}
+      {/*<Header title={user.firstName + ' ' + user.lastName} />
+      dispatching updateFirstName action to the User so that our state gets updated with the new first name we want to use
       <Pressable onPress={() => dispatch(updateFirstName({firstName: 'N'}))}>
         <Text>Press me to change first name</Text>
-      </Pressable>
+      </Pressable>*/}
       <Button
         title={'Donate'}
         onPress={() => {

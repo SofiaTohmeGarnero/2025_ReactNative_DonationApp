@@ -10,9 +10,12 @@ import {RootStackParamList, Routes} from '../../navigation/Routes';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { loginUser } from '../../api/user';
+import { logIn } from '../../redux/reducers/User';
+import { useAppDispatch } from '../../redux/typehooks';
 
 const Login = () => {
   type NavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,10 +49,15 @@ const Login = () => {
         <Button
             onPress={async () => {
               let user = await loginUser(email, password);
-              if (!user.status) {
+              /*
+                No funciona porque no me puedo conectar a firebase, pero sino debería ser que el dispatch me actualice la data del user y el initial state (user) estar vacío
+                console.log(user)
+              */
+              if (!!user.status) {
                 setError(user.error);
               } else {
                 setError('');
+                dispatch(logIn(user.data));
                 navigation.navigate(Routes.Home);
               }
             }}

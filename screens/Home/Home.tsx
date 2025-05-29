@@ -14,7 +14,7 @@ import Search from '../../components/Search/Search';
 // Importing the useSelector hook from the React Redux library
 // This hook allows us to select and retrieve data from the store
 import {useAppDispatch, useAppSelector} from '../../redux/typehooks';
-import {resetToInitialState, updateFirstName} from '../../redux/reducers/User';
+import {resetToInitialState} from '../../redux/reducers/User';
 import {
   Category,
   updateSelectedCategoryId,
@@ -82,7 +82,8 @@ function Home(): React.JSX.Element {
             <Text style={style.headerIntroText}>Hello, </Text>
             <View style={style.username}>
               <Header
-                title={user.firstName + ' ' + user.lastName[0] + '. 👋'}
+                //title={user.firstName + ' ' + user.lastName[0] + '. 👋'}
+                title={user.displayName + '. 👋'}
               />
             </View>
           </View>
