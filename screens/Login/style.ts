@@ -9,4 +9,10 @@ import {StyleSheet} from 'react-native';
   registrationButton: {
     alignItems: 'center',
   },
+  error: {
+    fontFamily: 'Inter',
+    fontSize: 16,
+    color: '#FF0000',
+    marginBottom: 24,
+  },
 });

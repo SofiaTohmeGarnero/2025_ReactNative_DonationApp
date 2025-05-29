@@ -10,6 +10,18 @@ const style = StyleSheet.create({
     marginLeft: 14,
     marginTop: 7,
   },
+  error: {
+    fontFamily: 'Inter',
+    fontSize: 16,
+    color: '#FF0000',
+    marginBottom: 24,
+  },
+  success: {
+    fontFamily: 'Inter',
+    fontSize: 16,
+    color: '#28a745',
+    marginBottom: 24,
+  },
 });
 
 export default style;
