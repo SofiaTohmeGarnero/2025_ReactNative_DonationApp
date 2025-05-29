@@ -53,7 +53,7 @@ const Login = () => {
                 No funciona porque no me puedo conectar a firebase, pero sino debería ser que el dispatch me actualice la data del user y el initial state (user) estar vacío
                 console.log(user)
               */
-              if (!!user.status) {
+              if (!user.status) {
                 setError(user.error);
               } else {
                 setError('');

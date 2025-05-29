@@ -1,11 +1,18 @@
-import { getApp } from '@react-native-firebase/app';
-import { getAuth, createUserWithEmailAndPassword, updateProfile, FirebaseAuthTypes, signInWithEmailAndPassword } from '@react-native-firebase/auth';
+import {getApp} from '@react-native-firebase/app';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  FirebaseAuthTypes,
+  signInWithEmailAndPassword,
+  signOut,
+} from '@react-native-firebase/auth';
 //import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export const createUser = async (
   fullName: string,
   email: string,
-  password: string
+  password: string,
 ) => {
   /* try {
     const response = await fetch('https://www.google.com');
@@ -16,8 +23,12 @@ export const createUser = async (
   try {
     const app = getApp();
     const auth = getAuth(app);
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    await updateProfile(userCredential.user, { displayName: fullName });
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
+    await updateProfile(userCredential.user, {displayName: fullName});
     //const user = await auth().createUserWithEmailAndPassword(email, password);
     //await user.user.updateProfile({ displayName: fullName });
     //console.log(userCredential);
@@ -33,11 +44,11 @@ export const createUser = async (
       return {error: 'Please enter a valid email address.'};
     }
     //console.log(authError);
-    return {error: 'Something went wrong with your request.'}; 
+    return {error: 'Something went wrong with your request.'};
   }
 };
 
-export const loginUser = async (email:string, password:string) => {
+export const loginUser = async (email: string, password: string) => {
   try {
     const app = getApp();
     const auth = getAuth(app);
@@ -64,4 +75,10 @@ export const loginUser = async (email:string, password:string) => {
     }
     return {status: false, error: 'Something went wrong'};
   }
+};
+
+export const logOut = async () => {
+  const app = getApp();
+  const auth = getAuth(app);
+  await signOut(auth);
 };
